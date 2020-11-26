@@ -74,6 +74,48 @@ export default class Inicio extends React.Component
                "maxLength": 20,
                "colValue": 12
             }
+         ],
+         [
+            {
+               "id": "tbTelefono",
+               "tag": "TextBox",
+               "placeholder": "5565125698",
+               "text": "Número celular",
+               "typeDate": "telephone",
+               "required": true,
+               "maxLength": 20,
+               "colValue": 3
+            },
+            {
+               "id": "tbNumeroEntero",
+               "tag": "TextBox",
+               "placeholder": "12",
+               "text": "Número entero",
+               "typeDate": "int",
+               "required": true,
+               "maxLength": 20,
+               "colValue": 3
+            },
+            {
+               "id": "tbNumeroFlotante",
+               "tag": "TextBox",
+               "placeholder": "12.34",
+               "text": "Número flotante",
+               "typeDate": "float",
+               "required": true,
+               "maxLength": 20,
+               "colValue": 3
+            },
+            {
+               "id": "tbCorreo",
+               "tag": "TextBox",
+               "placeholder": "correo@dominio.com",
+               "text": "Correo electrónico",
+               "typeDate": "email",
+               "required": true,
+               "maxLength": 20,
+               "colValue": 3
+            }
          ]
       ]
       return campos;

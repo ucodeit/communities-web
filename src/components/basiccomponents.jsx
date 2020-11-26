@@ -44,7 +44,8 @@ export class TextBox extends React.Component
       this.state =
       {
          value: "",
-         valid: false
+         valid: false,
+         cssValid: ""
       }
    }
 
@@ -52,22 +53,59 @@ export class TextBox extends React.Component
    {
       let value = event.target.value;
       let valid = true;
+      let cssValid = "";
       if(this.props.required)
       {
-         valid = this.validator(this.props.typeDate, value);
+         switch(this.props.typeDate)
+         {
+            case 'email':
+               const emailRegExp = new RegExp(/[A-Z0-9._%+-]+@[A-Z0-9-]+.+.[A-Z]{2,4}/,"igm");
+               valid = emailRegExp.test(value);
+            break;
+            case 'telephone':
+               const telRegExp = new RegExp('[\\(]?[\\+]?(\\d{2})[\\)]?[\\s]?(\\d{10}|\\d{12})|\\d{10}');
+               valid = telRegExp.test(value);
+            break;
+            case 'int':
+               const intRegExp = new RegExp(/^\d*(\.\d{1})?\d{0,1}$/);
+               valid = intRegExp.test(value);
+            break;
+            case 'float':
+               const floagRegExp = new RegExp(/^([0-9])*$/);
+               valid = floagRegExp.test(value);
+            break;
+            case 'name':
+               const nameRegExp = new RegExp(/^([a-z ñáéíóú]{2,60})$/, "i");
+               valid = nameRegExp.test(value);
+            break;
+            case 'password':
+               const passwordRegExp = new RegExp(/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/,'g');
+               valid = passwordRegExp.test(value);
+            break;
+            case 'text':
+               valid = true;
+            break;
+            default:
+               valid = false;
+            break;
+         }
+
+         if(valid)
+         {
+            cssValid = "is-valid";
+         }
+         else
+         {
+            cssValid = "is-invalid";
+         }
       }
 
-      let state = {value: value, valid:valid};
+      let state = { value: value, valid:valid, cssValid:cssValid };
       this.setState(state);
       if(this.props.onChange)
       {
          this.props.onChange(this.props.id, state);
       }
-   }
-
-   validator(value)
-   {
-      return (!this.autovalidate) ? this.textRegExp.test(value) : true;
    }
    
    render()
@@ -76,41 +114,34 @@ export class TextBox extends React.Component
       switch(this.props.typeDate)
       {
          case 'email':
-            this.textRegExp = /[A-Z0-9._%+-]+@[A-Z0-9-]+.+.[A-Z]{2,4}/igm;
             inputType = "email";
          break;
          case 'telephone':
-            this.textRegExp = new RegExp('[\\(]?[\\+]?(\\d{2})[\\)]?[\\s]?(\\d{10}|\\d{12})|\\d{10}');
             inputType = "tel";
          break;
          case 'int':
-            this.textRegExp = /^\d*(\.\d{1})?\d{0,1}$/;
             inputType = "number";
          break;
          case 'float':
-            this.textRegExp = /^([0-9])*$/;
             inputType = "number";
          break;
          case 'name':
-            this.textRegExp = /^([a-z ñáéíóú]{2,60})$/i;
             inputType = "text";
          break;
          case 'password':
-            this.textRegExp = new RegExp(/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/g);
             inputType = "password";
          break;
          case 'text':
-            this.autovalidate = true;
             inputType = "text";
          break;
          default:
-            this.autovalidate = false;
             inputType = "text";
          break;
       }
-      let className = "form-label-group " +  (this.props.className || "");
+      let classNameDiv = "form-label-group " +  (this.props.className || "");
+      let classNameTextBox = "form-control " + this.state.cssValid;
       return(
-         <div className={className}>
+         <div className={classNameDiv}>
             <label htmlFor={this.props.id}>
                {this.props.text}
             </label>
@@ -118,7 +149,7 @@ export class TextBox extends React.Component
                type={inputType}
                id={this.props.id} 
                onChange={this.onChange} 
-               className="form-control" 
+               className={classNameTextBox} 
                value={this.state.value} 
                placeholder={this.props.placeholder} 
                minLength={this.props.minLength} 
