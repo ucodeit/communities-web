@@ -66,11 +66,11 @@ export class TextBox extends React.Component
                const telRegExp = new RegExp('[\\(]?[\\+]?(\\d{2})[\\)]?[\\s]?(\\d{10}|\\d{12})|\\d{10}');
                valid = telRegExp.test(value);
             break;
-            case 'int':
+            case 'float':
                const intRegExp = new RegExp(/^\d*(\.\d{1})?\d{0,1}$/);
                valid = intRegExp.test(value);
             break;
-            case 'float':
+             case 'int':
                const floagRegExp = new RegExp(/^([0-9])*$/);
                valid = floagRegExp.test(value);
             break;

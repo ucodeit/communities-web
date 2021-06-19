@@ -1,0 +1,19 @@
+﻿.contenedor-login{
+    max-width: 40%;
+    margin: auto;
+    height: 300px;
+    padding: 3%;
+    background-color: green;
+}
+
+.padding-bottom-5{
+    padding-bottom: 5%;
+}
+
+.margin-right-15 {
+    margin-right: 15px;
+}
+
+text-center{
+    text-align: center;
+}
