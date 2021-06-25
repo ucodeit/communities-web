@@ -1,6 +1,13 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\public",
+    "\\src",
+    "\\src\\components",
+    "\\src\\css",
+    "\\src\\renderers",
+    "\\src\\views"
   ],
+  "SelectedNode": "\\src\\components\\basiccomponents.jsx",
   "PreviewInSolutionExplorer": false
 }
